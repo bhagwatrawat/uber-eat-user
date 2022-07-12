@@ -8,25 +8,30 @@
 
 import React from 'react';
 import {Image, StatusBar, StyleSheet, Text, View} from 'react-native';
+import RootNavigator from './src/navigation';
 import Homescreen from './src/screens/homescreen';
 import DetailScreen from './src/screens/detailscreen';
 import DishDetailScreen from './src/screens/dishDetailScreen';
 import BasketScreen from './src/screens/basketScreen';
 import OrdersScreen from './src/screens/ordersScreen';
+import OrderDetailScreen from './src/screens/orderDetailScreen';
+import {NavigationContainer} from '@react-navigation/native';
 const App = () => {
   return (
-    <View style={styles.container}>
+    <NavigationContainer >
       {/* our food item */}
       {/* <Homescreen /> */}
       {/* <DetailScreen /> */}
       {/* <DishDetailScreen/> */}
       {/* <BasketScreen/> */}
-      <OrdersScreen/>
+      {/* <OrdersScreen/> */}
+      {/* <OrderDetailScreen/> */}
+      <RootNavigator />
       <StatusBar
         hidden={false}
         translucent={true}
       />
-    </View>
+    </NavigationContainer>
   );
 };
 

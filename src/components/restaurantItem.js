@@ -1,9 +1,14 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, Pressable } from 'react-native'
+import {useNavigation} from '@react-navigation/native';
 import React from 'react'
 
 export default function RestaurantItem({restaurant}) {
+  const navigation= useNavigation();
+  const onPress=()=>{
+    navigation.navigate('DetailScreen',{id:restaurant.id});
+  }
   return (
-    <View style={styles.restaurantContainer}>
+    <Pressable onPress={onPress} style={styles.restaurantContainer}>
         <Image style={styles.foodImage} source={{uri:restaurant.image}}/>
         <View style={styles.foodInfo}>
           <View>
@@ -12,7 +17,7 @@ export default function RestaurantItem({restaurant}) {
           </View>
           <Text style={styles.rating}>{restaurant.rating}</Text>
         </View>
-      </View>
+      </Pressable>
   )
 }
 

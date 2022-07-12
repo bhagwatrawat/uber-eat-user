@@ -1,9 +1,13 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, Pressable } from 'react-native'
 import React from 'react'
-
+import {useNavigation} from '@react-navigation/native';
 export default function Order({order}) {
+  const navigation= useNavigation();
+  const onPress=()=>{
+    navigation.navigate('OrderDetailScreen',{id:order.id});
+  }
   return (
-    <View style={styles.page}>
+    <Pressable onPress={onPress} onPressstyle={styles.page}>
         <View style={styles.order}>
       <Image style={styles.image} source={{uri:order.Restaurant.image}}/>
       <View style={{flex:1}}>
@@ -13,7 +17,7 @@ export default function Order({order}) {
       </View>
       </View>
       <View style={styles.horizontal}></View>
-    </View>
+    </Pressable>
   )
 }
 const styles = StyleSheet.create({

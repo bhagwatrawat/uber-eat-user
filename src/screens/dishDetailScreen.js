@@ -2,10 +2,14 @@ import {View, Text, StyleSheet, Button, Pressable} from 'react-native';
 import React, {useState} from 'react';
 import restaurants from '../../assets/data/restaurants.json';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { useNavigation } from '@react-navigation/native';
 export default function DishDetailScreen() {
   const dish = restaurants[0].dishes[0];
   const [quantity, setQuantity] = useState(1);
-
+  const navigation= useNavigation();
+  const onPress = () => {
+    navigation.navigate('BasketScreen');
+  }
   const onMinus = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -28,7 +32,7 @@ export default function DishDetailScreen() {
           </View>
         </View>
         <View>
-          <Pressable style={styles.button} >
+          <Pressable onPress={onPress} style={styles.button} >
             <Text style={styles.buttonText}>Add {quantity} to basket  {+(dish.price*quantity).toFixed(2)} $</Text>
           </Pressable>
         </View> 
@@ -41,7 +45,6 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     width: '100%',
-    margin: 50,
   },
   contain: {
     margin: 30,

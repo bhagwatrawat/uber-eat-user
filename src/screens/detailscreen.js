@@ -1,20 +1,28 @@
-import {View, Text, StyleSheet, Image, FlatList} from 'react-native';
+import {View, Text, StyleSheet, Image, FlatList, Alert} from 'react-native';
 import React from 'react';
 import MenuItem from '../components/menuItem';
 import restaurants from '../../assets/data/restaurants.json';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import {useNavigation} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 export default function DetailScreen() {
+  const navigation= useNavigation();
+  const onPress=()=>{
+    navigation.navigate('HomeScreen');
+  }
+  const route=useRoute();
+  const id= route.params.id;
   const restaurant = restaurants[0];
   const Header=()=>{
     return(
       <View>
       <Image
-        style={styles.foodImage}
+        style={styles.foodImage} 
         source={{
           uri: restaurant.image,
         }}
       />
-      <FontAwesome5 style={styles.backButton} name="arrow-left" size={20}  />
+      <FontAwesome5 onPress={onPress} style={styles.backButton} name="arrow-left" size={20}  />
       <View>
         <View style={styles.foodInfo}>
           <Text style={styles.title}>{restaurant.name}</Text>
@@ -34,6 +42,7 @@ export default function DetailScreen() {
             ListHeaderComponent={Header}
             data={restaurant.dishes}
             renderItem={({item}) => <MenuItem dish={item} />}
+            keyExtractor={item => item.name}
             showsVerticalScrollIndicator={false}
           />
         
