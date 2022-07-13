@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         
     },
     number:{
-        fontSize:15,
+        fontSize:14,
         fontWeight:"600",
         backgroundColor:'#f5f5f5',
         paddingVertical:5,
