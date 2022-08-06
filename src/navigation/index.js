@@ -7,6 +7,7 @@ import DishDetailScreen from '../screens/dishDetailScreen';
 import BasketScreen from '../screens/basketScreen';
 import OrdersScreen from '../screens/ordersScreen';
 import OrderDetailScreen from '../screens/orderDetailScreen';
+import ProfileScreen from '../screens/profileScreen';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -35,7 +36,7 @@ const HomeTabs = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Homescreen}
+        component={ProfileScreen}
         options={{
           tabBarIcon: ({color}) => {
             return <FontAwesome5 name="user-alt" size={20} color={color} />;

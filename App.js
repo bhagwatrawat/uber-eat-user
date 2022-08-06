@@ -11,30 +11,26 @@ import {Image, StatusBar, StyleSheet, Text, View} from 'react-native';
 import RootNavigator from './src/navigation';
 import {NavigationContainer} from '@react-navigation/native';
 import {withAuthenticator} from 'aws-amplify-react-native';
-import { Auth } from 'aws-amplify';
+import {Auth} from 'aws-amplify';
 import SignUp from './src/screens/signUp';
 const App = () => {
   return (
-    <NavigationContainer >
-      {/* <RootNavigator /> */}
-      <SignUp />
-      <StatusBar
-        hidden={false}
-        translucent={true}
-      />
+    <NavigationContainer>
+      <RootNavigator />
+      {/* <SignUp /> */}
+      <StatusBar hidden={false} translucent={true} />
     </NavigationContainer>
-
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-    color:"black"
+    color: 'black',
   },
 });
 
-export default App;
+export default withAuthenticator(App);
