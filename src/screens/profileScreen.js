@@ -1,7 +1,7 @@
 import { Text, TextInput, StyleSheet, Button } from "react-native";
 import React, {  useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-
+import {Auth} from 'aws-amplify';
 const Profile = () => {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -9,7 +9,9 @@ const Profile = () => {
   const [lng, setLng] = useState("0");
 
   const onSave = () => {};
+  const onSignOut=()=>{
 
+  }
   return (
     <SafeAreaView>
       <Text style={styles.title}>Profile</Text>
@@ -39,6 +41,7 @@ const Profile = () => {
         style={styles.input}
       />
       <Button onPress={onSave} title="Save" />
+      <Button onPress={onSignOut} title="SignOut" />
     </SafeAreaView>
   );
 };

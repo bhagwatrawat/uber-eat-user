@@ -33,4 +33,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withAuthenticator(App);
+export default App;

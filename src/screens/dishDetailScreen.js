@@ -1,12 +1,19 @@
-import {View, Text, StyleSheet, Button, Pressable} from 'react-native';
-import React, {useState} from 'react';
-import restaurants from '../../assets/data/restaurants.json';
+import { View, Text, StyleSheet, Button, Pressable, ActivityIndicator } from 'react-native';
+import React, {useEffect, useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { Dish } from '../models';
+import { DataStore } from 'aws-amplify';
 export default function DishDetailScreen() {
-  const dish = restaurants[0].dishes[0];
+  
   const [quantity, setQuantity] = useState(1);
   const navigation= useNavigation();
+  const route=useRoute();
+  const id= route.params.id;
+  const [dish,setDish] = useState(null);
+  useEffect(()=>{
+    DataStore.query(Dish,id).then(setDish);
+  },[])
   const onPress = () => {
     navigation.navigate('BasketScreen');
   }
@@ -18,6 +25,11 @@ export default function DishDetailScreen() {
   const onPlus = () => {
     setQuantity(quantity + 1);
   };
+  if(!dish){
+    return ( 
+      <ActivityIndicator style={{flex:1,justifyContent: 'center',alignItems:'center'}}/>
+    )
+  }
   return (
     <View style={styles.page}>
       <View style={styles.contain}>

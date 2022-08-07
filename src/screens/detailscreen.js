@@ -1,25 +1,33 @@
-import {View, Text, StyleSheet, Image, FlatList, Alert} from 'react-native';
-import React from 'react';
+import {View, Text, StyleSheet, Image, FlatList, Alert, ActivityIndicator} from 'react-native';
+import React, { useEffect, useState } from 'react';
 import MenuItem from '../components/menuItem';
-import restaurants from '../../assets/data/restaurants.json';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {useNavigation} from '@react-navigation/native';
 import {useRoute} from '@react-navigation/native';
+import { DataStore } from 'aws-amplify';
+import { Restaurant,Dish } from '../models';
 export default function DetailScreen() {
+  const [restaurant,setRestaurant] = useState(null);
+  const [dishes,setDishes] = useState([]);
   const navigation= useNavigation();
+  const DEFAULT_IMAGE="https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant1.jpeg";
+
   const onPress=()=>{
     navigation.navigate('HomeScreen');
   }
   const route=useRoute();
   const id= route.params.id;
-  const restaurant = restaurants[0];
+  useEffect(()=>{
+    DataStore.query(Restaurant,id).then(setRestaurant);
+    DataStore.query(Dish,(dish)=>dish.restaurantID("eq",id)).then(setDishes);
+  },[]);
   const Header=()=>{
     return(
       <View>
       <Image
         style={styles.foodImage} 
         source={{
-          uri: restaurant.image,
+          uri: restaurant.image.startsWith('http')?restaurant.image:DEFAULT_IMAGE
         }}
       />
       <FontAwesome5 onPress={onPress} style={styles.backButton} name="arrow-left" size={20}  />
@@ -35,12 +43,17 @@ export default function DetailScreen() {
       </View>
     )
   }
+  if(!restaurant){
+    return ( 
+      <ActivityIndicator style={{flex:1,justifyContent: 'center',alignItems:'center'}}/>
+    )
+  }
   return (
     <View style={styles.restaurantContainer}>
       
           <FlatList
             ListHeaderComponent={Header}
-            data={restaurant.dishes}
+            data={dishes}
             renderItem={({item}) => <MenuItem dish={item} />}
             keyExtractor={item => item.name}
             showsVerticalScrollIndicator={false}
