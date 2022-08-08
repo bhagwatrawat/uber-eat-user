@@ -13,12 +13,16 @@ import {NavigationContainer} from '@react-navigation/native';
 import {withAuthenticator} from 'aws-amplify-react-native';
 import {Auth} from 'aws-amplify';
 import SignUp from './src/screens/signUp';
+import AuthContextProvider from './src/contexts/authContext';
 const App = () => {
   return (
     <NavigationContainer>
+      <AuthContextProvider>
       <RootNavigator />
+      </AuthContextProvider>
       {/* <SignUp /> */}
       <StatusBar hidden={false} translucent={true} />
+
     </NavigationContainer>
   );
 };
@@ -33,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default  withAuthenticator(App);

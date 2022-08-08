@@ -10,7 +10,7 @@ const Profile = () => {
 
   const onSave = () => {};
   const onSignOut=()=>{
-
+    Auth.signOut();
   }
   return (
     <SafeAreaView>

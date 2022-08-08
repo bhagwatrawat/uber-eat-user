@@ -9,6 +9,7 @@ import OrdersScreen from '../screens/ordersScreen';
 import OrderDetailScreen from '../screens/orderDetailScreen';
 import ProfileScreen from '../screens/profileScreen';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import { useAuthContext } from '../contexts/authContext';
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 const HomeStack=createNativeStackNavigator();
@@ -47,6 +48,7 @@ const HomeTabs = () => {
   );
 };
 const RootNavigator = () => {
+  const {dbUser}=useAuthContext();
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
